@@ -1,6 +1,6 @@
 package core
 
-class MyUser {
+class User {
 
 	//These 4 required for authentication
 	String login
