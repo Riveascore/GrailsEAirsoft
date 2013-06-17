@@ -11,10 +11,10 @@ class User {
 	//Rest of these are optional
 	//BUT, required if you want to buy/sell
 
-//	String firstName 
-//	String lastName
-//	String address
-//	String phoneNumber
+	String firstName 
+	String lastName
+	String address
+	String phoneNumber
 	
 //	Date dateJoined
 	
@@ -41,10 +41,10 @@ class User {
 		statistic nullable:true
 		payments nullable:true
 		notifications nullable:true
-//		firstName nullable:true
-//		lastName nullable:true
-//		address nullable:true
-//		phoneNumber nullable:true
+		firstName nullable:true
+		lastName nullable:true
+		address nullable:true
+		phoneNumber nullable:true
 		
 		// Might be covered by authenticationUserClass?
 		//login blank: false, size: 1..20, unique: true
