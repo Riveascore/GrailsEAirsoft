@@ -1,18 +1,18 @@
 package core
+import com.grailsrocks.authentication.*
 
 class User {
 
-	//These 4 required for authentication
+	
 	String login
 	String password
 	String email
-	int status
-	
+	int status = AuthenticationService.STATUS_NEW
 	//Rest of these are optional
 	//BUT, required if you want to buy/sell
-	String firstName, lastName, username
-	String address, phoneNumber
-	Date dateJoined
+//	String firstName, lastName
+//	String address, phoneNumber
+//	Date dateJoined
 	
 	//TODO handle security question(s)
 	//TODO captcha for preventing bot signups
@@ -29,9 +29,26 @@ class User {
 	//Address etc for you
 		
     static constraints = {
+//		strongEnoughPassword()
 		// Might be covered by authenticationUserClass?
-		username blank: false, size: 1..20, unique: true
-		email nulable: false, email: true
-		//password.collect { it.charAt(0).digit || it.charAt(0).letter ? it : ' ' }.join('').tokenize(' ').size() min:3
+		//login blank: false, size: 1..20, unique: true
+		//email nullable: false, email: true
+		//dateJoined nullable: true
+		// min:3
     }
+	
+	boolean strongEnoughPassword(){
+		int numberOfWords = password.collect { it.charAt(0).digit || it.charAt(0).letter ? it : ' ' }.join('').tokenize(' ').size()
+		numberOfWords >= 3
+	}
+	
+	boolean equals(user){
+		if(user.getClass() != User){
+			return false
+		}
+		if(user.id != this.id){
+			return false
+		}
+		true
+	}
 }
