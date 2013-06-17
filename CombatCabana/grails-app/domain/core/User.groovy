@@ -10,8 +10,12 @@ class User {
 	int status = AuthenticationService.STATUS_NEW
 	//Rest of these are optional
 	//BUT, required if you want to buy/sell
-//	String firstName, lastName
-//	String address, phoneNumber
+
+//	String firstName 
+//	String lastName
+//	String address
+//	String phoneNumber
+	
 //	Date dateJoined
 	
 	//TODO handle security question(s)
@@ -21,7 +25,7 @@ class User {
 	
 	static hasOne = [cart:Cart, store:Store, statistic:Statistic]
 	
-	static hasMany = [payments:Payment, notification:Notification]
+	static hasMany = [payments:Payment, notifications:Notification]
 
 	//TODO Allow everything besides [username, email, password] to be blank
 	//UP UNTIL you want to sell/buy, then you have to enter
@@ -30,6 +34,18 @@ class User {
 		
     static constraints = {
 //		strongEnoughPassword()
+		
+		//Find a way to make this nicer
+		cart nullable:true
+		store nullable:true
+		statistic nullable:true
+		payments nullable:true
+		notifications nullable:true
+//		firstName nullable:true
+//		lastName nullable:true
+//		address nullable:true
+//		phoneNumber nullable:true
+		
 		// Might be covered by authenticationUserClass?
 		//login blank: false, size: 1..20, unique: true
 		//email nullable: false, email: true
