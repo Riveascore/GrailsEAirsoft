@@ -93,4 +93,5 @@ log4j = {
 //Authentication stuff
 grails.validateable.classes = [com.grailsrocks.authentication.SignupForm, com.grailsrocks.authentication.LoginForm]
 authenticationUserClass = core.User
+//authentication.signup.disabled = true
 //^prevents errors 

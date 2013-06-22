@@ -43,6 +43,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
+		
 		test(":spock:0.7") { exclude "spock-grails-support" }
 
 		runtime ":hibernate:$grailsVersion"
@@ -59,5 +60,7 @@ grails.project.dependency.resolution = {
 		runtime ":database-migration:1.3.2"
 
 		compile ':cache:1.0.1'
+		
+		compile ":authentication:2.0.1"
 	}
 }
