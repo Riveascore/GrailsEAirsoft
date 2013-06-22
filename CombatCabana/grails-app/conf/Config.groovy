@@ -94,3 +94,8 @@ log4j = {
 grails.validateable.classes = [com.grailsrocks.authentication.SignupForm, com.grailsrocks.authentication.LoginForm]
 authenticationUserClass = core.User
 //^prevents errors 
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'security.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'security.UserRole'
+grails.plugins.springsecurity.authority.className = 'security.Role'
