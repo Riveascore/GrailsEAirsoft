@@ -2,8 +2,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils
 
 class BootStrap {
 
-	def authenticationService
-	Map failOnError = [failOnError: true]
+//	def authenticationService
+//	Map failOnError = [failOnError: true]
+	def springSecurityService
 	
 	def init = { servletContext ->
 
