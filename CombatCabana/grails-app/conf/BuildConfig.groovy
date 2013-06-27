@@ -43,6 +43,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
+		runtime ":twitter-bootstrap:2.3.2"
 		compile ":cache:1.0.1"
 		compile ":spring-security-core:1.2.7.3"
 		compile ":spring-security-oauth2-provider:1.0.0.M5.1"
@@ -50,7 +51,7 @@ grails.project.dependency.resolution = {
 		test(":spock:0.7") { exclude "spock-grails-support" }
 
 		runtime ":hibernate:$grailsVersion"
-		runtime ":jquery:1.8.3"
+		runtime ":jquery:1.10.0"
 		runtime ":resources:1.1.6"
 
 		// Uncomment these (or add new ones) to enable additional resources capabilities

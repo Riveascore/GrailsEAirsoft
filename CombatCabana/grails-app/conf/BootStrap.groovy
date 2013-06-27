@@ -8,13 +8,8 @@ class BootStrap {
 	
 	def init = { servletContext ->
 
-		
-//		def riveascore = new core.User(
-//			login: 'Riveascore', 
-//			password:authenticationService.encodePassword('freedom'), 
-//			email: 'riveascore@yahoo.com', 
-//			status:AuthenticationService.STATUS_VALID).save(failOnError)
-		
+		new security.User(username: 'megaman', enabled: true, password: 'this is fun').save(flush: true)
+		new security.User(username: 'riveascore', enabled: true, password: 'this is fun').save(flush: true)
 	}
 	
 	def destroy = {

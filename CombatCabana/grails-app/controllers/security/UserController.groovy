@@ -1,6 +1,7 @@
 package security
 
 import java.security.Security;
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -8,6 +9,28 @@ class UserController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
+	
+	//Edit, create, delete, show, list
+	//Only edit if User.id == springSecurityService.getCurrentUser().id
+	/*
+	 * Show -> edit if
+	 * User.id == springSecurityService.getCurrentUser().id
+	 * Else: show -> show
+	 * 
+	 * edit -> edit if
+	 * User.id == springSecurityService.getCurrentUser().id
+	 * Else: edit -> show
+	 * 
+	 *  list -> list
+	 *  
+	 *  create -> "current action with same params" 
+	 *  if springSecurityService.getCurrentUser() != null
+	 *  Else: create -> create
+	 *  
+	 *  delete -> "current action with same params" 
+	 *  if params.user?id == springSecurityService.getCurrentUser().id
+	 */
+	//
 
 	def index() {
 		redirect(action: "list", params: params)
@@ -15,16 +38,16 @@ class UserController {
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		[userInstanceList: security.User.list(params), userInstanceTotal: security.User.count()]
+		//It appears that User.count has errors if there are 0 Users in the database?
+		[userInstanceList: User.list(params), userInstanceTotal: User.count()]
 	}
 
 
 
 	def create() {
-		/*Don't allow access to this action if logged in, not
-		 * that there will be a redirection if they try to do it, there 
-		 * WILL BE NO CHOICE to get here 
-		 */
+		if(springSecurityService.isLoggedIn()){
+		}
+		[userInstance: new User(params)]
 	}
 
 	def save() {

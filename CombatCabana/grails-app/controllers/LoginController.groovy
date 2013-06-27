@@ -47,7 +47,7 @@ class LoginController {
 			redirect uri: config.successHandler.defaultTargetUrl
 			return
 		}
-
+		println "${config.apf.filterProcessesUrl}"
 		String view = 'auth'
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		render view: view, model: [postUrl: postUrl,

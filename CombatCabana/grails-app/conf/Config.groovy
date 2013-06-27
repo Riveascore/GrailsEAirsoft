@@ -99,3 +99,44 @@ authenticationUserClass = core.User
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'security.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'security.UserRole'
 grails.plugins.springsecurity.authority.className = 'security.Role'
+
+//Locking down certain URLs based on authentication type:
+grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugins.springsecurity.interceptUrlMap = [
+	'/user/create':  ['IS_AUTHENTICATED_ANONYMOUSLY']
+ ]
+
+
+
+
+grails.plugins.springsecurity.useSecurityEventListener = true
+
+grails.plugins.springsecurity. onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
+   // handle InteractiveAuthenticationSuccessEvent
+}
+
+grails.plugins.springsecurity. onAbstractAuthenticationFailureEvent = { e, appCtx ->
+   // handle AbstractAuthenticationFailureEvent
+}
+
+grails.plugins.springsecurity. onAuthenticationSuccessEvent = { e, appCtx ->
+   // handle AuthenticationSuccessEvent
+}
+
+grails.plugins.springsecurity. onAuthenticationSwitchUserEvent = { e, appCtx ->
+   // handle AuthenticationSwitchUserEvent
+}
+
+grails.plugins.springsecurity. onAuthorizationEvent = { e, appCtx ->
+   // handle AuthorizationEvent
+}
+//Registering Callback Closures to handle events and notifications
+
+
+//Get Twitter bootstrap working
+grails.plugins.twitterbootstrap.fixtaglib = true
+grails.plugins.twitterbootstrap.fixtaglib = true
+grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
+
+//Jquery problems
+grails.views.javascript.library="jquery"
