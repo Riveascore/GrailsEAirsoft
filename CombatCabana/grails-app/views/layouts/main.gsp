@@ -19,12 +19,23 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<g:render template="/accountAuth"></g:render>
+		<span id='loginLink' style='position: relative; margin-right: 30px; float: right'>
+	<sec:ifLoggedIn>
+	   Logged in as <sec:username/> <g:link class="btn btn-success" controller='logout'>Logout</g:link>
+	</sec:ifLoggedIn>
+	<sec:ifNotLoggedIn>
+		<g:link fragment="myLoginModal" class="btn btn-success" data-toggle="modal">Login</g:link>
+	</sec:ifNotLoggedIn>
+</span>
+		
+<%--		<g:render template="/accountAuth"></g:render>--%>
+		<g:render template="/includes/ajaxLogin"></g:render>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
+		
 		<r:layoutResources />
 	</body>
 </html>

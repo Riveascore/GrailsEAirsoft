@@ -49,6 +49,12 @@ class UserController {
 		}
 		[userInstance: new User(params)]
 	}
+	
+	def signup() {
+		if(springSecurityService.isLoggedIn()){
+		}
+		[userInstance: new User(params)]
+	}
 
 	def save() {
 		def map=params
