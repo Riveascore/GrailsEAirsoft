@@ -24,12 +24,14 @@
 	   Logged in as <sec:username/> <g:link class="btn btn-success" controller='logout'>Logout</g:link>
 	</sec:ifLoggedIn>
 	<sec:ifNotLoggedIn>
-		<g:link fragment="myLoginModal" class="btn btn-success" data-toggle="modal">Login</g:link>
+		<g:link fragment="loginModal" class="btn btn-success" data-toggle="modal">Login</g:link>
+		<br/>
+		<g:link fragment="signupModal" class="btn btn-success" data-toggle="modal">Signup</g:link>
 	</sec:ifNotLoggedIn>
 </span>
 		
-<%--		<g:render template="/accountAuth"></g:render>--%>
 		<g:render template="/includes/ajaxLogin"></g:render>
+		<g:render template="/includes/ajaxSignup"></g:render>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>

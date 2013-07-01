@@ -1,5 +1,7 @@
 package security
 
+import grails.plugins.springsecurity.SpringSecurityService;
+
 class User {
 
 	transient springSecurityService
@@ -14,16 +16,15 @@ class User {
 
 	static constraints = {
 		username blank: false, unique: true
-		password blank: false
-//		password(blank: false, nullable: false, size:5..20, validator: {password, obj ->
-//			def confirmPassword = obj.properties['confirmPassword']
-//			if(confirmPassword == null) return true // skip matching password validation (only important when setting/resetting pass)
-//			confirmPassword == password ? true : ['invalid.matchingpasswords']
-//		})
-		password(blank: false, validator: {password, obj ->
+		password(validator: { myPassword, obj->
 			def confirmPassword = obj.properties['confirmPassword']
-			if(confirmPassword == null) return true
-			confirmPassword.equals(password) ? true : ['invalid.matchingpasswords']
+			if(confirmPassword.equals(null)) return false
+			if(confirmPassword == myPassword){
+				return true
+			}
+			else{
+				return ['invalid.matchingpasswords']
+			}
 		})
 	}
 			
@@ -37,10 +38,14 @@ class User {
 	}
 
 	def beforeInsert() {
+		encodeConfirmedPassword()
 		encodePassword()
 	}
 
 	def beforeUpdate() {
+		if (isDirty('confirmPassword')) {
+			encodeConfirmedPassword()
+		}
 		if (isDirty('password')) {
 			encodePassword()
 		}
@@ -52,6 +57,10 @@ class User {
 		password = springSecurityService.encodePassword(password)
 	}
 	
-	static transients = ['confirmPassword']
+	protected void encodeConfirmedPassword() {
+		confirmPassword = springSecurityService.encodePassword(confirmPassword)
+	}
+	
+//	static transients = ['confirmPassword']
 	//^I believe this prevents it from being stored in the database
 }

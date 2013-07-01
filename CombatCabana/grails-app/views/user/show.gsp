@@ -40,6 +40,15 @@
 					
 				</li>
 				</g:if>
+				
+				<g:if test="${userInstance?.confirmPassword}">
+				<li class="fieldcontain">
+					<span id="confirmPassword-label" class="property-label"><g:message code="user.confirmPassword.label" default="confirmPassword" /></span>
+					
+						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${userInstance}" field="confirmPassword"/></span>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${userInstance?.accountExpired}">
 				<li class="fieldcontain">

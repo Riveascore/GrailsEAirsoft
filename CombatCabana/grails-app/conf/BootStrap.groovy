@@ -7,9 +7,7 @@ class BootStrap {
 	def springSecurityService
 	
 	def init = { servletContext ->
-
-		new security.User(username: 'megaman', enabled: true, password: 'this is fun').save(flush: true)
-		new security.User(username: 'riveascore', enabled: true, password: 'this is fun').save(flush: true)
+		new security.User(username: 'megaman', enabled: true, password: 'this is fun', confirmPassword: 'this is fun').save(flush: true)
 	}
 	
 	def destroy = {

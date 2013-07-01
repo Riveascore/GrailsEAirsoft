@@ -9,7 +9,10 @@ class UserController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
+
 	
+	//To render things via ajax in modals
+//	d ajaxify = ['signup', 'save']
 	//Edit, create, delete, show, list
 	//Only edit if User.id == springSecurityService.getCurrentUser().id
 	/*
@@ -45,34 +48,26 @@ class UserController {
 
 
 	def create() {
-		if(springSecurityService.isLoggedIn()){
-		}
-		[userInstance: new User(params)]
-	}
-	
-	def signup() {
-		if(springSecurityService.isLoggedIn()){
-		}
 		[userInstance: new User(params)]
 	}
 
-	def save() {
-		def map=params
+	def signup() {
+		if (request.xhr) {
+			render(template: 'signupAjax', model: [userInstance: new User(params)])
+		}
+		else{
+			[userInstance: new User(params)]
+		}
+	}
+
+	def save = {
 		def userInstance = new User(params)
+		userInstance.setEnabled(true)
 		if (!userInstance.save(flush: true)) {
-			render(view: "create", model: [userInstance: userInstance])
+			render(template: 'signupAjax', model: [userInstance: userInstance])
 			return
 		}
-
-		if (!userInstance.authorities.contains(SecRole.findByAuthority(params.role))) {
-			SecUserSecRole.create userInstance, SecRole.findByAuthority(params.role)
-		}
-
-		flash.message = message(code: 'default.created.message', args: [
-			message(code: 'user.label', default: 'User'),
-			userInstance.id
-		])
-		redirect(action: "show", id: userInstance.id)
+		redirect(action: 'signup')
 	}
 
 	def show(Long id) {
