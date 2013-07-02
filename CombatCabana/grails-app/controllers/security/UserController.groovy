@@ -52,22 +52,23 @@ class UserController {
 	}
 
 	def signup() {
-		if (request.xhr) {
-			render(template: 'signupAjax', model: [userInstance: new User(params)])
-		}
-		else{
-			[userInstance: new User(params)]
-		}
+		[userInstance: new User(params)]
 	}
 
 	def save = {
+		
 		def userInstance = new User(params)
 		userInstance.setEnabled(true)
+		
+		Boolean errorsExist
+		
 		if (!userInstance.save(flush: true)) {
-			render(template: 'signupAjax', model: [userInstance: userInstance])
+			render(view: 'signup', model: [userInstance: userInstance, errorsExist: true])
 			return
 		}
-		redirect(action: 'signup')
+		
+		render(view: 'signup', model: [newUsername: userInstance.username, errorsExist: false])
+		return
 	}
 
 	def show(Long id) {

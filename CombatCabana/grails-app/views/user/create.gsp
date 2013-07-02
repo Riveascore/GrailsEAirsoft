@@ -7,6 +7,7 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
+	
 		<a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
@@ -25,15 +26,43 @@
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>
-			</g:hasErrors>
-			<g:form action="save" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
+			</g:hasErrors> 
+			<g:formRemote name="ajaxSignupForm" url="[action:'save',controller:'user']" update="signupModal" onSuccess="attemptToCloseModal()">
+			
+			<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'username', 'error')} required">
+				<label for="username">
+					<g:message code="user.username.label" default="Username" />
+					<span class="required-indicator">*</span>
+				</label>
+				<g:textField name="username" required="" value="${userInstance?.username}"/>
+			</div>
+			
+			<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+				<label for="password">
+					<g:message code="user.password.label" default="Password" />
+					<span class="required-indicator">*</span>
+				</label>
+				<g:passwordField name="password" required="" value="${userInstance?.password}"/>
+			</div>
+			
+			<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'confirmPassword', 'error')} required">
+				<label for="confirmPassword">
+					<g:message code="user.confirmPassword.label" default="Confirm Password" />
+					<span class="required-indicator">*</span>
+				</label>
+				<g:passwordField name="confirmPassword" required="" value="${userInstance?.confirmPassword}"/>
+			</div>
+			<g:submitButton name="create" class="btn btn-success" value="Create Account" />
+		</g:formRemote>
 		</div>
+		
+		<g:javascript>
+			function attemptToCloseModal(){
+<%--				alert('Errors exist: ${errorsExist}')--%>
+				if(${!errorsExist}){
+					$('#signupModal').modal('toggle')
+				}
+			}
+		</g:javascript>
 	</body>
 </html>
