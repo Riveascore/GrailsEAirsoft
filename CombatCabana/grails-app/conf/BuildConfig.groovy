@@ -47,8 +47,10 @@ grails.project.dependency.resolution = {
 		compile ":cache:1.0.1"
 		compile ":spring-security-core:1.2.7.3"
 		compile ":spring-security-oauth2-provider:1.0.0.M5.1"
+		compile ":geb:0.9.0"
 		
 		test(":spock:0.7") { exclude "spock-grails-support" }
+		test("org.grails.plugins:geb:0.9.0")
 
 		runtime ":hibernate:$grailsVersion"
 		runtime ":jquery:1.10.0"

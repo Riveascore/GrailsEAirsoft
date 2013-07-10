@@ -15,17 +15,16 @@ class User {
 	boolean passwordExpired
 
 	static constraints = {
-		username blank: false, unique: true
-		password(validator: { myPassword, obj->
-			def confirmPassword = obj.properties['confirmPassword']
-			if(confirmPassword.equals(null)) return false
-			if(confirmPassword == myPassword){
+		username (blank: false, unique: true)
+		password(
+			validator: { myPassword, obj->
+				def confirmPassword = obj.properties['confirmPassword']
+				if(confirmPassword.equals(null)) return false
+				if(confirmPassword != myPassword){
+					return ['invalid.matchingpasswords']
+				}
 				return true
-			}
-			else{
-				return ['invalid.matchingpasswords']
-			}
-		})
+			})
 	}
 			
 
@@ -60,7 +59,4 @@ class User {
 	protected void encodeConfirmedPassword() {
 		confirmPassword = springSecurityService.encodePassword(confirmPassword)
 	}
-	
-//	static transients = ['confirmPassword']
-	//^I believe this prevents it from being stored in the database
 }
